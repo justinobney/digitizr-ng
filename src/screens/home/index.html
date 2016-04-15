@@ -2,7 +2,9 @@
   <div class="col-xs-12">
     <h1>Home</h1>
     <hr>
-    {{home.text}}
-    <sample></sample>
+    {{$ctrl.text}}
+    <br>
+    <a ui-sref="home.sample()">Sample</a>
+    <div ui-view></div>
   </div>
 </div>

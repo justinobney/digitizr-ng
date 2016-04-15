@@ -18,21 +18,18 @@ import styles from 'index.css';
 // app template
 import appTemplate from './screens/app.html';
 
-function AppDirective() {
-  return {
-    restrict: 'E',
-    template: appTemplate
-  }
-}
-
 AppConfig.$inject = ['$stateProvider', '$urlRouterProvider'];
 function AppConfig($stateProvider, $urlRouterProvider) {
   $urlRouterProvider.otherwise("/");
 
   $stateProvider
-    .state('root', {
+    .state('home', {
       url: '/',
       template: '<home></home>'
+    })
+    .state('home.sample', {
+      url: 'sample',
+      template: '<sample></sample>'
     });
 }
 
@@ -50,7 +47,9 @@ const deps = [
 
 
 angular.module('wintake.digitizr', deps)
-  .directive('app', AppDirective)
+  .component('app', {
+    template: appTemplate
+  })
   .value('config', {})
   .config(AppConfig)
   .run(AppBootstrap, AppBootstrap);
