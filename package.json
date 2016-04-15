@@ -4,8 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "prestart": "npm install",
-    "start": "webpack-dev-server",
+    "start": "webpack-dev-server --devtool eval --config webpack.config.js --progress --colors --hot",
     "bundle": "cp src/index.html dist/ & webpack -p ./dist/bundle.js"
   },
   "repository": {

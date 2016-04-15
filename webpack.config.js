@@ -3,8 +3,13 @@ var path = require('path');
 module.exports = {
 
   // set the context (optional)
-  context: path.join( __dirname, '/src'),
-  entry: 'index.js',
+  context: path.join( __dirname, './src'),
+  // entry: 'index.js',
+  entry: ['webpack/hot/dev-server', path.resolve(__dirname, './src/index.js')],
+  output: {
+    path: path.resolve(__dirname, './src'),
+    filename: 'bundle.js'
+  },
 
   // enable loading modules relatively (without the ../../ prefix)
   resolve: {

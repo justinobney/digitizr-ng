@@ -7,7 +7,7 @@ import uiRouter from 'angular-ui-router';
 import home from './screens/home/index.js';
 
 // components
-import sample from './components/sample.js'
+import sample from './components/sample/index.js'
 
 // services
 // import api from './services/api.js';
@@ -46,7 +46,7 @@ const deps = [
 ];
 
 
-angular.module('wintake.digitizr', deps)
+export default angular.module('wintake.digitizr', deps)
   .component('app', {
     template: appTemplate
   })

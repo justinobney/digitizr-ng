@@ -1,8 +1,8 @@
-import template from './sample.html';
+import template from './index.html';
 
 function SampleController(){
   const sample = this;
-  sample.text = 'sample';
+  sample.text = 'samples';
 }
 
 export default angular
