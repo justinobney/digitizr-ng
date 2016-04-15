@@ -13,7 +13,9 @@ module.exports = {
 
   // enable loading modules relatively (without the ../../ prefix)
   resolve: {
-    root: path.join( __dirname, '/src')
+    root: path.join( __dirname, '/src'),
+    modulesDirectories: ['src', 'tests', 'node_modules'],
+    extensions: ['', '.webpack.js', '.js']
   },
 
   module: {
