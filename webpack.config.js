@@ -27,6 +27,8 @@ module.exports = {
       // load css and process less
       { test: /\.css$/, loader: "style!css"},
 
+      { test: /\.scss$/, loaders: ["style", "css", "sass"] },
+
       // load JSON files and HTML
       { test: /\.json$/, loader: "json" },
       { test: /\.html$/, exclude: /node_modules/, loader:"raw" },

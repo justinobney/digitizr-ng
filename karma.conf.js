@@ -13,13 +13,13 @@ module.exports = function(config) {
         autoWatchBatchDelay: 300,
         files: [
             'src/index.js',
-            'beforeEachTest.js',
+            'before-each-test.js',
             'src/**/*.spec.js',
             'src/**/*.html'
         ],
 
         preprocessors: {
-            'beforeEachTest.js': ['webpack'],
+            'before-each-test.js': ['webpack'],
             'src/**/*.spec.js': ['webpack'],
             'src/index.js': ['webpack']
         },

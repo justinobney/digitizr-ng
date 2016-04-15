@@ -11,7 +11,7 @@ webpackConfig.module.loaders = webpackConfig.module.loaders.filter(function (l) 
     return l;
 });
 
-webpackConfig.entryPatterns = ['src/index.js', 'beforeEachTest.js', 'src/**/*.spec.js'];
+webpackConfig.entryPatterns = ['src/index.js', 'before-each-test.js', 'src/**/*.spec.js'];
 
 module.exports = function (wallaby) {
     return {
@@ -20,7 +20,7 @@ module.exports = function (wallaby) {
             {pattern: 'src/**/*.html', load: false},
             {pattern: 'src/**/*.scss', load: false},
             {pattern: 'src/**/*.css', load: false},
-            {pattern: 'beforeEachTest.js', load: false},
+            {pattern: 'before-each-test.js', load: false},
             {pattern: 'src/**/*.js', load: false},
             {pattern: 'src/**/*.spec.js', ignore: true}
         ],
