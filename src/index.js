@@ -14,7 +14,7 @@ import components from './components/index.js'
 import appTemplate from './screens/app.html';
 
 // style
-import styles from 'index.css';
+import styles from 'index.scss';
 
 function AppBootstrap (config) {
   config.apiHeader = localStorage.getItem('apiHeader');
