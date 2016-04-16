@@ -1,7 +1,7 @@
-import sample from './sample/index.js'
+import stage from './stage/index.js'
 
 const deps = [
-  sample
+  stage
 ];
 
 

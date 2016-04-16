@@ -1,3 +1,51 @@
-.home-component {
-  
+@import "mixins.scss";
+
+home {
+  @include columnParent();
+  @include flexChild();
+}
+
+.home-component-header {
+  @include columnParent();
+  @include flex(0 auto);
+  height: 120px;
+}
+
+.home-component-header-row {
+  @include rowParent();
+  @include flexChild();
+}
+
+.home-component-header-button {
+  @include button(rgba(127, 211, 255, 0.67));
+}
+
+.home-component-primary {
+  @include columnParent();
+  @include flex(0 auto);
+  height: 60px;
+}
+
+.home-component-primary-row {
+  @include rowParent();
+  @include flexChild();
+}
+
+.home-component-primary-button {
+  @include button(rgba(142, 255, 128, 0.67));
+}
+
+.home-component-secondary {
+  @include flex(0 auto);
+  width: percentage(2/7);
+}
+
+.home-component-secondary-row {
+  @include rowParent();
+  @include flexChild();
+}
+
+.home-component-secondary-button {
+  @include button(rgba(255, 189, 128, 0.67));
+  height: 51px;
 }

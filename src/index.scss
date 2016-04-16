@@ -1,9 +1,39 @@
 @import url(https://fonts.googleapis.com/css?family=Open+Sans);
+@import url(https://fonts.googleapis.com/css?family=Lato:400,700,300);
+@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro);
+
+@import "mixins.scss";
 
 html, body {
   height: 100%;
+  padding: 0;
+  margin: 0;
 }
 
 body {
   font-family: 'Open Sans', sans-serif;
+}
+
+app {
+  @include columnParent();
+  @include flexChild();
+  height: 100%;
+}
+
+.app-component {
+  @include columnParent();
+  @include flexChild();
+}
+
+.app-component-header {
+  @include flexContent();
+  @include flex(0 1 30px);
+  background: #000;
+  color: #FFF;
+  line-height: 30px;
+}
+
+.app-component-content {
+  @include columnParent();
+  @include flexChild();
 }

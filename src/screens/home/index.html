@@ -1,10 +1,51 @@
-<div class="home-component row">
-  <div class="col-xs-12">
-    <h1>Home</h1>
-    <hr>
-    {{$ctrl.text}}
-    <br>
-    <a ui-sref="home.sample()">Sample</a>
-    <div ui-view></div>
+<div class="home-component-header">
+  <div class="home-component-header-row">
+    <button ng-repeat="btn in [
+              'Category', 'Shop', 'Demo', 'Underground', 'Code 1', 'Code 2', 'Code 3',
+            ]"
+            class="home-component-header-button"
+    >
+      {{btn}}
+    </button>
+  </div>
+  <div class="home-component-header-row">
+    <button ng-repeat="btn in [
+              'Drawing', 'Paint', 'Insulation', 'Area', 'Code 4', 'Code 5', 'Code 6',
+            ]"
+            class="home-component-header-button"
+    >
+      {{btn}}
+    </button>
+  </div>
+</div>
+<div class="home-component-primary">
+  <div class="home-component-primary-row">
+    <button ng-repeat="btn in [
+              'Line No', 'Sheet No', 'Rev No', 'Spec', 'Size', 'Abbreviation', 'Quantity',
+            ]"
+            class="home-component-primary-button"
+    >
+      {{btn}}
+    </button>
+  </div>
+</div>
+<div class="flexChild rowParent">
+  <stage></stage>
+  <div class="home-component-secondary">
+    <div ng-repeat="group in [
+    ['Class','Schedule'],
+    ['Size 2','Size 3'],
+    ['End 1','End 2'],
+    ['End Condition'],
+    ['Labor/Material','X-Ray'],
+    ['Tag No'],
+    ['Notes']
+    ]" class="home-component-secondary-row">
+      <button ng-repeat="btn in group"
+              class="home-component-secondary-button">
+        {{btn}}
+      </button>
+    </div>
+
   </div>
 </div>

@@ -5,9 +5,5 @@ export default function routeConfig($stateProvider, $urlRouterProvider) {
     .state('home', {
       url: '/',
       template: '<home></home>'
-    })
-    .state('home.sample', {
-      url: 'sample',
-      template: '<sample></sample>'
     });
 }
