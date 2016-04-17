@@ -1,49 +1,32 @@
 <div class="home-component-header">
-  <div class="home-component-header-row">
-    <button ng-repeat="btn in [
-              'Category', 'Shop', 'Demo', 'Underground', 'Code 1', 'Code 2', 'Code 3',
-            ]"
-            class="home-component-header-button"
-    >
-      {{btn}}
-    </button>
-  </div>
-  <div class="home-component-header-row">
-    <button ng-repeat="btn in [
-              'Drawing', 'Paint', 'Insulation', 'Area', 'Code 4', 'Code 5', 'Code 6',
-            ]"
-            class="home-component-header-button"
-    >
-      {{btn}}
+  <div class="home-component-header-row"
+       ng-repeat="config in $ctrl.workflowConfig.header">
+    <button class="home-component-header-button"
+            ng-repeat="setting in config"
+            ng-click="$ctrl.jumpToWorkflow(setting.key)">
+      {{setting.text}}
     </button>
   </div>
 </div>
 <div class="home-component-primary">
-  <div class="home-component-primary-row">
-    <button ng-repeat="btn in [
-              'Line No', 'Sheet No', 'Rev No', 'Spec', 'Size', 'Abbreviation', 'Quantity',
-            ]"
-            class="home-component-primary-button"
-    >
-      {{btn}}
+  <div class="home-component-primary-row"
+       ng-repeat="config in $ctrl.workflowConfig.primary">
+    <button class="home-component-primary-button"
+            ng-repeat="setting in config"
+            ng-click="$ctrl.jumpToWorkflow(setting.key)">
+      {{setting.text}}
     </button>
   </div>
 </div>
 <div class="flexChild rowParent">
   <stage></stage>
   <div class="home-component-secondary">
-    <div ng-repeat="group in [
-    ['Class','Schedule'],
-    ['Size 2','Size 3'],
-    ['End 1','End 2'],
-    ['End Condition'],
-    ['Labor/Material','X-Ray'],
-    ['Tag No'],
-    ['Notes']
-    ]" class="home-component-secondary-row">
-      <button ng-repeat="btn in group"
-              class="home-component-secondary-button">
-        {{btn}}
+    <div ng-repeat="config in $ctrl.workflowConfig.secondary"
+         class="home-component-secondary-row">
+      <button class="home-component-secondary-button"
+              ng-repeat="setting in config"
+              ng-click="$ctrl.jumpToWorkflow(setting.key)">
+        {{setting.text}}
       </button>
     </div>
 

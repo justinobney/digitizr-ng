@@ -1,9 +1,15 @@
 import styles from './index.scss';
 import template from './index.html';
 
-function HomeController(){
+function HomeController(workflowService){
   const home = this;
-  home.text = 'hi component';
+  home.workflowConfig = workflowService.config;
+
+  home.jumpToWorkflow = jumpToWorkflow;
+
+  function jumpToWorkflow(key){
+    alert(key)
+  }
 }
 
 export default angular

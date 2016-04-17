@@ -8,7 +8,7 @@ import routeConfig from './config/route.js';
 
 import screens from './screens/index.js';
 import components from './components/index.js'
-// import services from './services/index.js';
+import services from './services/index.js';
 
 // app template
 import appTemplate from './screens/app.html';
@@ -24,7 +24,8 @@ const deps = [
   uibs,
   uiRouter,
   screens,
-  components
+  components,
+  services
 ];
 
 
