@@ -8,7 +8,7 @@ function HomeController(workflowService){
   home.jumpToWorkflow = jumpToWorkflow;
 
   function jumpToWorkflow(key){
-    alert(key)
+    workflowService.transition(key);
   }
 }
 

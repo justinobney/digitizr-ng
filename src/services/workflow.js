@@ -1,4 +1,4 @@
-function WorkflowService(){
+function WorkflowService($state){
   const svc = this;
   svc.config = {
     primary: [
@@ -60,6 +60,15 @@ function WorkflowService(){
       ]
     ]
   };
+
+  svc.transition = transition;
+
+  function transition(step){
+    $state.transitionTo('home.takeoff', {
+      id: 1,
+      step
+    });
+  }
 }
 
 export default angular
