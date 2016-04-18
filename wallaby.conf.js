@@ -31,7 +31,7 @@ module.exports = function (wallaby) {
             '**/*.js': wallaby.compilers.babel({
                 babel: babel,
                 sourceMap: true,
-                presets: ['es2015']
+                presets: ['es2015', 'stage-1']
             })
         },
         postprocessor: wallabyWebpack(webpackConfig),

@@ -1,9 +1,11 @@
-function WorkflowService(){
+function WorkflowService($compile, $rootScope){
   const svc = this;
+  let _stage = null;
+  let state = {lineNo: 'foo'}; // TODO: move to svc
   svc.config = {
     primary: [
       [
-        {text: 'Line No', key: 'lineNo'},
+        {text: 'Line No', key: 'lineNo', component: 'generic-step', resolve: () => ({'step': 'lineNo'})},
         {text: 'Sheet No', key: 'sheetNo'},
         {text: 'Rev No', key: 'revNo'},
         {text: 'Spec', key: 'spec'},
@@ -60,6 +62,60 @@ function WorkflowService(){
       ]
     ]
   };
+
+  svc.registerStage = registerStage;
+  svc.transition = transition;
+
+  const flatten = list => list.reduce(
+    (acc, arr) => acc.concat(Array.isArray(arr) ? flatten(arr) : arr), []
+  );
+
+  function registerStage(stage){
+    _stage = stage;
+  }
+
+  function transition(step){
+    if(!_stage){
+      throw new Error('stage not set');
+    }
+    const stepConfig = findTransitionState(step);
+    const defaults = {component: 'generic-step', resolve: () => ({step})};
+    compile({...defaults, ...stepConfig});
+  }
+
+  function findTransitionState(key){
+    var configs = svc.config.primary.concat(
+      svc.config.secondary,
+      svc.config.header
+    );
+
+    const step = flatten(configs).filter(v => v.key == key);
+
+    if(step.length !== 1){
+      throw new Error('step not found')
+    }
+
+    return step[0];
+  }
+
+  function compile(config){
+    const bindings = config.resolve();
+    const props = Object.keys(bindings)
+      .map(key => `${key}="${key}"`) // TODO: _.kebabCase(key) maybe?
+      .join(' ');
+
+    const scope = Object.keys(bindings).reduce((acc, key) => {
+      acc[key] = bindings[key];
+      return acc;
+    }, $rootScope.$new());
+
+    const html = `<${config.component} ${props}></${config.component}>`;
+    const el = angular.element(html);
+    $compile(el)(scope);
+    angular.element(_stage)
+      .empty()
+      .append(el);
+  }
 }
 
 export default angular

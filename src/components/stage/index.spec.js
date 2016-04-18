@@ -1,19 +1,30 @@
-describe('Component: CardPractice', () => {
-    let $compile, $rootScope;
-    let element;
-
-    beforeEach(angular.mock.module('wintake.digitizr.stage'));
-    beforeEach(angular.mock.inject(function (_$compile_, _$rootScope_) {
-        $compile = _$compile_;
-        $rootScope = _$rootScope_;
-    }));
+describe('Component: stage', () => {
+    let $injector, $compile, $rootScope;
+    let workflow, element;
 
     beforeEach(() => {
-        element = $compile('<stage>')($rootScope);
-        $rootScope.$digest();
+      angular.mock.module(
+        'wintake.digitizr.stage',
+        'wintake.digitizr.services.workflow'
+      );
+
+      angular.mock.inject(
+        _$injector_ => {
+          $injector = _$injector_;
+          $compile = $injector.get('$compile');
+          $rootScope = $injector.get('$rootScope');
+          workflow = $injector.get('workflowService');
+        }
+      );
     });
 
-    it('should say hello to the world', ()=> {
-        expect(true).toBeTruthy();
+    beforeEach(() => {
+      spyOn(workflow, 'registerStage');
+      element = $compile('<stage>')($rootScope);
+      $rootScope.$digest();
+    });
+
+    it('should register the stage in the $postLink', ()=> {
+      expect(workflow.registerStage).toHaveBeenCalled();
     });
 });
