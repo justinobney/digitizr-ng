@@ -1,5 +1,9 @@
 function GenericStepController(){
   const stepCtrl = this;
+
+  stepCtrl.$onDestroy = () => {
+    console.log(`$onDestroy ${stepCtrl.step}`);
+  };
 }
 
 export default angular

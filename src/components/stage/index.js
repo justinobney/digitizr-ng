@@ -6,7 +6,8 @@ function StageController($element, workflowService){
   stage.text = 'stages';
 
   stage.$postLink = function(){
-    workflowService.registerStage($element);
+    const mount = $element[0].querySelector('.stage-component-content');
+    workflowService.registerStage(angular.element(mount));
   }
 }
 

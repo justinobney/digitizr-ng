@@ -1,11 +1,22 @@
-function WorkflowService($compile, $rootScope){
+function WorkflowService($q, $compile, $injector, $rootScope){
   const svc = this;
   let _stage = null;
+  let _stageScope = null;
   let state = {lineNo: 'foo'}; // TODO: move to svc
   svc.config = {
     primary: [
       [
-        {text: 'Line No', key: 'lineNo', component: 'generic-step', resolve: () => ({'step': 'lineNo'})},
+        {
+          text: 'Line No',
+          key: 'lineNo',
+          component: 'generic-step',
+          $inject:['$q', '$http'],
+          resolve: ($q, $http) => {
+            // can return object
+            // or promise that resolves with full object
+            return $q.resolve({'step': 'lineNo'});
+          }
+        },
         {text: 'Sheet No', key: 'sheetNo'},
         {text: 'Rev No', key: 'revNo'},
         {text: 'Spec', key: 'spec'},
@@ -70,17 +81,32 @@ function WorkflowService($compile, $rootScope){
     (acc, arr) => acc.concat(Array.isArray(arr) ? flatten(arr) : arr), []
   );
 
+  const identityFn = x => x;
+
   function registerStage(stage){
     _stage = stage;
   }
 
   function transition(step){
+    // ensure stage
     if(!_stage){
       throw new Error('stage not set');
     }
+
+    // cleanup previously staged component
+    if(_stageScope){
+      _stageScope.$broadcast('$destroy');
+    }
+
+    // mount new component
     const stepConfig = findTransitionState(step);
     const defaults = {component: 'generic-step', resolve: () => ({step})};
-    compile({...defaults, ...stepConfig});
+    const config = {...defaults, ...stepConfig};
+
+    // resolve and compile
+    resolveBindings(config).then((bindings) => {
+      compile(config, bindings);
+    });
   }
 
   function findTransitionState(key){
@@ -98,20 +124,33 @@ function WorkflowService($compile, $rootScope){
     return step[0];
   }
 
-  function compile(config){
-    const bindings = config.resolve();
+  function resolveBindings(config){
+    const deps = (config.$inject || []).map(
+      dep => $injector.get(dep)
+    );
+
+    const bindings = config.resolve(...deps);
+
+    if(bindings.then){
+      return bindings.then(identityFn);
+    } else {
+      return $q.resolve(bindings);
+    }
+  }
+
+  function compile(config, bindings){
     const props = Object.keys(bindings)
       .map(key => `${key}="${key}"`) // TODO: _.kebabCase(key) maybe?
       .join(' ');
 
-    const scope = Object.keys(bindings).reduce((acc, key) => {
+    _stageScope = Object.keys(bindings).reduce((acc, key) => {
       acc[key] = bindings[key];
       return acc;
     }, $rootScope.$new());
 
     const html = `<${config.component} ${props}></${config.component}>`;
     const el = angular.element(html);
-    $compile(el)(scope);
+    $compile(el)(_stageScope);
     angular.element(_stage)
       .empty()
       .append(el);

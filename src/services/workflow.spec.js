@@ -38,10 +38,14 @@ describe('Service: workflowService', () => {
         workflow.transition('lineNo');
         $rootScope.$digest();
         expect(stage.text().indexOf('lineNo')).not.toBe(-1)
+        const component = angular.element(stage.children()[0]);
+        const componentCtrl = component.controller('genericStep');
+        spyOn(componentCtrl, '$onDestroy');
 
         // uses default config
         workflow.transition('spec');
         $rootScope.$digest();
+        expect(componentCtrl.$onDestroy).toHaveBeenCalled();
         expect(stage.text().indexOf('spec')).not.toBe(-1)
       });
     });
