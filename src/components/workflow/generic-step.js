@@ -17,7 +17,7 @@ export default angular
     },
     template: `
       <div class="home-component-stage-header">
-        Generic Step: "{{$ctrl.step.text}}"
+        {{$ctrl.step.text}}
       </div>
       <div class="home-component-stage-content">
         <button ng-click="$ctrl.onSelect({value:'foo'})"

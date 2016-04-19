@@ -4,6 +4,18 @@ function WorkflowService($q, $compile, $injector, $rootScope){
   let _stageScope = null;
   let _currentProp = null;
   let state = {lineNo: 'foo'}; // TODO: move to svc
+
+  // TODO: testing
+
+  const items = [
+    {text: 'Value 1', value: '1'}
+  ];
+
+  const randomItems = () => {
+    const items = _.times(_.random(2,9), n => ({text: `Value ${n}`, value: n}))
+    return {items};
+  };
+
   svc.config = {
     primary: [
       [
@@ -13,52 +25,39 @@ function WorkflowService($q, $compile, $injector, $rootScope){
           component: 'generic-step',
           $inject:['$q', '$http'],
           resolve: ($q, $http) => {
-            // can return object
-            // or promise that resolves with full object
             return $q.resolve({});
           }
         },
-        {
-          text: 'Sheet No',
-          key: 'sheetNo',
-          component: 'pick-list',
-          $inject:['$q', '$http'],
-          resolve: ($q) => $q.resolve({items: [
-            {text: 'Value 1', value: '1'},
-            {text: 'Value 2', value: '2'},
-            {text: 'Value 3', value: '3'},
-            {text: 'Value 4', value: '4'}
-          ]})
-        },
-        {text: 'Rev No', key: 'revNo'},
+        {text: 'Sheet No', key: 'sheetNo', component: 'pick-list', resolve: randomItems},
+        {text: 'Rev No', key: 'revNo', component: 'pick-list', resolve: randomItems},
         {text: 'Spec', key: 'spec'},
         {text: 'Size', key: 'size'},
-        {text: 'Abbr', key: 'abbr'},
+        {text: 'Abbr', key: 'abbr', component: 'pick-list', resolve: randomItems},
         {text: 'Quantity', key: 'quantity'}
       ]
     ],
     secondary: [
       [
         {text: 'Class', key: 'class'},
-        {text: 'Schedule', key: 'schedule'}
+        {text: 'Schedule', key: 'schedule', component: 'pick-list', resolve: randomItems}
       ],
       [
         {text: 'Size 2', key: 'size2'},
-        {text: 'Size 3', key: 'size3'}
+        {text: 'Size 3', key: 'size3', component: 'pick-list', resolve: randomItems}
       ],
       [
         {text: 'End 1', key: 'end1'},
-        {text: 'End 2', key: 'end2'}
+        {text: 'End 2', key: 'end2', component: 'pick-list', resolve: randomItems}
       ],
       [
         {text: 'End Condition', key: 'endCondition'}
       ],
       [
         {text: 'Labor/Material', key: 'laborMaterial'},
-        {text: 'X-Ray', key: 'xRay'}
+        {text: 'X-Ray', key: 'xRay', component: 'pick-list', resolve: randomItems}
       ],
       [
-        {text: 'Tag No', key: 'tagNo'}
+        {text: 'Tag No', key: 'tagNo', component: 'pick-list', resolve: randomItems}
       ],
       [
         {text: 'Notes', key: 'notes'}
@@ -68,20 +67,20 @@ function WorkflowService($q, $compile, $injector, $rootScope){
       [
         {text: 'Category', key: 'category'},
         {text: 'Code 1', key: 'code1'},
-        {text: 'Code 2', key: 'code2'},
-        {text: 'Code 3', key: 'code3'},
-        {text: 'Code 4', key: 'code4'},
-        {text: 'Code 5', key: 'code5'},
-        {text: 'Code 6', key: 'code6'}
+        {text: 'Code 2', key: 'code2', component: 'pick-list', resolve: randomItems},
+        {text: 'Code 3', key: 'code3', component: 'pick-list', resolve: randomItems},
+        {text: 'Code 4', key: 'code4', component: 'pick-list', resolve: randomItems},
+        {text: 'Code 5', key: 'code5', component: 'pick-list', resolve: randomItems},
+        {text: 'Code 6', key: 'code6', component: 'pick-list', resolve: randomItems}
       ],
       [
         {text: 'Drawing', key: 'drawing'},
         {text: 'Paint', key: 'paint'},
         {text: 'Insulation', key: 'insulation'},
-        {text: 'Area', key: 'area'},
-        {text: 'Shop', key: 'shop'},
+        {text: 'Area', key: 'area', component: 'pick-list', resolve: randomItems},
+        {text: 'Shop', key: 'shop', component: 'pick-list', resolve: randomItems},
         {text: 'Demo', key: 'demo'},
-        {text: 'Underground', key: 'underground'}
+        {text: 'Underground', key: 'underground', component: 'pick-list', resolve: randomItems}
       ]
     ]
   };

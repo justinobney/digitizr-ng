@@ -3,7 +3,7 @@
 
 .pick-list-button {
   @include button(rgba(142, 255, 128, 0.67));
-  width: 100%;
+  width: 30%;
   padding: 10px;
-  margin: 3px 0px;
+  margin: 3px 1.5%;
 }
