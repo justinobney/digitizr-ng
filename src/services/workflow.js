@@ -55,21 +55,21 @@ function WorkflowService($q, $compile, $injector, $rootScope){
     header: [
       [
         {text: 'Category', key: 'category'},
-        {text: 'Shop', key: 'shop'},
-        {text: 'Demo', key: 'demo'},
-        {text: 'Underground', key: 'underground'},
         {text: 'Code 1', key: 'code1'},
         {text: 'Code 2', key: 'code2'},
-        {text: 'Code 3', key: 'code3'}
+        {text: 'Code 3', key: 'code3'},
+        {text: 'Code 4', key: 'code4'},
+        {text: 'Code 5', key: 'code5'},
+        {text: 'Code 6', key: 'code6'}
       ],
       [
         {text: 'Drawing', key: 'drawing'},
         {text: 'Paint', key: 'paint'},
         {text: 'Insulation', key: 'insulation'},
         {text: 'Area', key: 'area'},
-        {text: 'Code 4', key: 'code4'},
-        {text: 'Code 5', key: 'code5'},
-        {text: 'Code 6', key: 'code6'}
+        {text: 'Shop', key: 'shop'},
+        {text: 'Demo', key: 'demo'},
+        {text: 'Underground', key: 'underground'}
       ]
     ]
   };

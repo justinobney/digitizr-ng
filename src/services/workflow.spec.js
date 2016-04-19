@@ -35,6 +35,7 @@ describe('Service: workflowService', () => {
 
       it('transition should compile and load step', () => {
         // component and resolve found
+        // resolve returns promise
         workflow.transition('lineNo');
         $rootScope.$digest();
         expect(stage.text().indexOf('lineNo')).not.toBe(-1)
@@ -43,6 +44,7 @@ describe('Service: workflowService', () => {
         spyOn(componentCtrl, '$onDestroy');
 
         // uses default config
+        // resolve returns plain object
         workflow.transition('spec');
         $rootScope.$digest();
         expect(componentCtrl.$onDestroy).toHaveBeenCalled();

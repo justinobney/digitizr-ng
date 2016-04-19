@@ -13,7 +13,7 @@ export default angular
       step: '='
     },
     template: `
-      <div>{{$ctrl.step}}</div>
+      <div>Generic Step: "{{$ctrl.step}}"</div>
     `,
     controller: GenericStepController
   })
