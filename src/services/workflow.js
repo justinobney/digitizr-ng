@@ -18,7 +18,18 @@ function WorkflowService($q, $compile, $injector, $rootScope){
             return $q.resolve({});
           }
         },
-        {text: 'Sheet No', key: 'sheetNo'},
+        {
+          text: 'Sheet No',
+          key: 'sheetNo',
+          component: 'pick-list',
+          $inject:['$q', '$http'],
+          resolve: ($q) => $q.resolve({items: [
+            {text: 'Value 1', value: '1'},
+            {text: 'Value 2', value: '2'},
+            {text: 'Value 3', value: '3'},
+            {text: 'Value 4', value: '4'}
+          ]})
+        },
         {text: 'Rev No', key: 'revNo'},
         {text: 'Spec', key: 'spec'},
         {text: 'Size', key: 'size'},
@@ -186,7 +197,7 @@ function WorkflowService($q, $compile, $injector, $rootScope){
 
   function compile(config, bindings){
     const props = Object.keys(bindings)
-      .map(key => `${key}="${key}"`) // TODO: _.kebabCase(key) maybe?
+      .map(key => `${_.kebabCase(key)}="${key}"`)
       .concat(['on-select="onSelect(value)"'])
       .join(' ');
 

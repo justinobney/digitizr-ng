@@ -56,6 +56,16 @@
   padding: $value;
 }
 
+@mixin col($col, $sum, $gap: 0.1em, $align: top, $first: false, $last: false) {
+  width: percentage($col/$sum);
+  font-size: 16px;
+  display: inline-block;
+  vertical-align: $align;
+  box-sizing: border-box;
+  padding-left: if($first, 0, $gap);
+  padding-right: if($last, 0, $gap);
+}
+
 @mixin button($color){
   @include flexChild();
   font-family: 'Source Sans Pro', sans-serif;

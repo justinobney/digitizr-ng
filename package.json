@@ -55,6 +55,7 @@
     "angular": "1.5.3",
     "angular-resource": "^1.5.3",
     "angular-ui-bootstrap": "^1.0.3",
-    "angular-ui-router": "^0.2.15"
+    "angular-ui-router": "^0.2.15",
+    "lodash": "^4.11.1"
   }
 }

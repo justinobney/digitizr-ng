@@ -4,7 +4,7 @@ function GenericStepController(){
   const stepCtrl = this;
 
   stepCtrl.$onDestroy = () => {
-    console.log(`$onDestroy ${stepCtrl.step.text}`);
+    console.log(`generic-step ::: $onDestroy ::: ${stepCtrl.step.text}`);
   };
 }
 

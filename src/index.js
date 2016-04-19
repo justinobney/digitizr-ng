@@ -1,4 +1,6 @@
 // npm
+import 'lodash';
+
 import angular from 'angular';
 import uibs from 'angular-ui-bootstrap';
 import uiRouter from 'angular-ui-router';
