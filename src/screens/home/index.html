@@ -3,7 +3,7 @@
        ng-repeat="config in $ctrl.workflowConfig.header">
     <button class="home-component-header-button"
             ng-repeat="setting in config"
-            ng-click="$ctrl.jumpToWorkflow(setting.key)">
+            ng-click="$ctrl.jumpToWorkflow(setting)">
       {{setting.text}}
     </button>
   </div>
@@ -13,24 +13,19 @@
        ng-repeat="config in $ctrl.workflowConfig.primary">
     <button class="home-component-primary-button"
             ng-repeat="setting in config"
-            ng-click="$ctrl.jumpToWorkflow(setting.key)">
+            ng-click="$ctrl.jumpToWorkflow(setting)">
       {{setting.text}}
     </button>
   </div>
 </div>
 <div class="flexChild rowParent">
-  <div class="home-component-stage">
-    <div class="home-component-stage-header">
-      Header
-    </div>
-    <div class="home-component-stage-content"></div>
-  </div>
+  <div class="home-component-stage"></div>
   <div class="home-component-secondary">
     <div ng-repeat="config in $ctrl.workflowConfig.secondary"
          class="home-component-secondary-row">
       <button class="home-component-secondary-button"
               ng-repeat="setting in config"
-              ng-click="$ctrl.jumpToWorkflow(setting.key)">
+              ng-click="$ctrl.jumpToWorkflow(setting)">
         {{setting.text}}
       </button>
     </div>

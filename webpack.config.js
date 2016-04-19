@@ -41,7 +41,7 @@ module.exports = {
       {test: /\.(png|jpg)$/, loader: 'url-loader?limit=8192'}
     ]
   },
-  
+
   sassLoader: {
     includePaths: [path.resolve(__dirname, "./src")]
   },

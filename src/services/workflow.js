@@ -2,6 +2,7 @@ function WorkflowService($q, $compile, $injector, $rootScope){
   const svc = this;
   let _stage = null;
   let _stageScope = null;
+  let _currentProp = null;
   let state = {lineNo: 'foo'}; // TODO: move to svc
   svc.config = {
     primary: [
@@ -14,7 +15,7 @@ function WorkflowService($q, $compile, $injector, $rootScope){
           resolve: ($q, $http) => {
             // can return object
             // or promise that resolves with full object
-            return $q.resolve({'step': 'lineNo'});
+            return $q.resolve({});
           }
         },
         {text: 'Sheet No', key: 'sheetNo'},
@@ -76,6 +77,7 @@ function WorkflowService($q, $compile, $injector, $rootScope){
 
   svc.registerStage = registerStage;
   svc.transition = transition;
+  svc.handlePropUpdate = handlePropUpdate;
 
   const flatten = list => list.reduce(
     (acc, arr) => acc.concat(Array.isArray(arr) ? flatten(arr) : arr), []
@@ -83,9 +85,42 @@ function WorkflowService($q, $compile, $injector, $rootScope){
 
   const identityFn = x => x;
 
+  function findNextStep(step){
+    //TODO: Add non-naive strategy
+    var configs = svc.config.primary.concat(
+      svc.config.secondary,
+      svc.config.header
+    );
+
+    const steps = flatten(configs).sort((a, b) => {
+      if (a.key > b.key) { return 1; }
+      return a.key < b.key ? -1 : 0;
+    });
+
+    const currIdx = steps.findIndex(x=>x.key === step);
+    if(steps.length - 1 > currIdx){
+      return steps[currIdx+1];
+    }
+
+  }
+
+  function handlePropUpdate(value){
+    state[_currentProp] = value;
+    var nextStep = findNextStep(_currentProp);
+    if(nextStep){
+      transition(nextStep);
+    }
+
+    //TODO: remove
+    console.log(state);
+  }
+
   function registerStage(stage){
     _stage = stage;
   }
+
+
+  // transition workflow
 
   function transition(step){
     // ensure stage
@@ -98,13 +133,15 @@ function WorkflowService($q, $compile, $injector, $rootScope){
       _stageScope.$broadcast('$destroy');
     }
 
+    _currentProp = step.key;
+
     // mount new component
-    const stepConfig = findTransitionState(step);
-    const defaults = {component: 'generic-step', resolve: () => ({step})};
+    const stepConfig = findTransitionState(step.key);
+    const defaults = {component: 'generic-step', resolve: () => ({step: step})};
     const config = {...defaults, ...stepConfig};
 
     // resolve and compile
-    resolveBindings(config).then((bindings) => {
+    resolveBindings(config, step).then((bindings) => {
       compile(config, bindings);
     });
   }
@@ -124,7 +161,12 @@ function WorkflowService($q, $compile, $injector, $rootScope){
     return step[0];
   }
 
-  function resolveBindings(config){
+  function resolveBindings(config, step){
+    const decorateBindings = (props) => {
+      props.step = step;
+      props.currentValue = state[_currentProp];
+    };
+
     const deps = (config.$inject || []).map(
       dep => $injector.get(dep)
     );
@@ -132,8 +174,12 @@ function WorkflowService($q, $compile, $injector, $rootScope){
     const bindings = config.resolve(...deps);
 
     if(bindings.then){
-      return bindings.then(identityFn);
+      return bindings.then(resolved => {
+        decorateBindings(resolved);
+        return resolved;
+      });
     } else {
+      decorateBindings(bindings);
       return $q.resolve(bindings);
     }
   }
@@ -141,12 +187,15 @@ function WorkflowService($q, $compile, $injector, $rootScope){
   function compile(config, bindings){
     const props = Object.keys(bindings)
       .map(key => `${key}="${key}"`) // TODO: _.kebabCase(key) maybe?
+      .concat(['on-select="onSelect(value)"'])
       .join(' ');
 
     _stageScope = Object.keys(bindings).reduce((acc, key) => {
       acc[key] = bindings[key];
       return acc;
     }, $rootScope.$new());
+
+    _stageScope.onSelect = (value) => svc.handlePropUpdate(value);
 
     const html = `<${config.component} ${props}></${config.component}>`;
     const el = angular.element(html);

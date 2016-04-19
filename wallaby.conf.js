@@ -17,6 +17,7 @@ module.exports = function (wallaby) {
     return {
         debug: true,
         files: [
+            {pattern: 'node_modules/babel-polyfill/browser.js', instrument: false},
             {pattern: 'src/**/*.html', load: false},
             {pattern: 'src/**/*.scss', load: false},
             {pattern: 'src/**/*.css', load: false},

@@ -36,19 +36,36 @@ describe('Service: workflowService', () => {
       it('transition should compile and load step', () => {
         // component and resolve found
         // resolve returns promise
-        workflow.transition('lineNo');
+        workflow.transition({
+          text: 'Line No',
+          key: 'lineNo',
+          component: 'generic-step'
+        });
         $rootScope.$digest();
-        expect(stage.text().indexOf('lineNo')).not.toBe(-1)
+        expect(stage.text().indexOf('Line No')).not.toBe(-1)
         const component = angular.element(stage.children()[0]);
         const componentCtrl = component.controller('genericStep');
         spyOn(componentCtrl, '$onDestroy');
 
         // uses default config
         // resolve returns plain object
-        workflow.transition('spec');
+        workflow.transition({text: 'Spec', key: 'spec'});
         $rootScope.$digest();
         expect(componentCtrl.$onDestroy).toHaveBeenCalled();
-        expect(stage.text().indexOf('spec')).not.toBe(-1)
+        expect(stage.text().indexOf('Spec')).not.toBe(-1)
+      });
+
+      it('should call workflow service when button clicked', () => {
+        spyOn(workflow, 'handlePropUpdate').and.callThrough();
+        workflow.transition({
+          text: 'Line No',
+          key: 'lineNo',
+          component: 'generic-step'
+        });
+        $rootScope.$digest();
+        let button = stage.find('button');
+        button.triggerHandler('click');
+        expect(workflow.handlePropUpdate).toHaveBeenCalledWith('foo');
       });
     });
 });

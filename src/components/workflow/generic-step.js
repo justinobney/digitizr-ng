@@ -1,8 +1,10 @@
+import './generic-step.scss';
+
 function GenericStepController(){
   const stepCtrl = this;
 
   stepCtrl.$onDestroy = () => {
-    console.log(`$onDestroy ${stepCtrl.step}`);
+    console.log(`$onDestroy ${stepCtrl.step.text}`);
   };
 }
 
@@ -10,10 +12,19 @@ export default angular
   .module('wintake.digitizr.step.generic', [])
   .component('genericStep', {
     bindings: {
-      step: '='
+      step: '=',
+      onSelect: '&'
     },
     template: `
-      <div>Generic Step: "{{$ctrl.step}}"</div>
+      <div class="home-component-stage-header">
+        Generic Step: "{{$ctrl.step.text}}"
+      </div>
+      <div class="home-component-stage-content">
+        <button ng-click="$ctrl.onSelect({value:'foo'})"
+                class="generic-step-button">
+          Click Me
+        </button>
+      </div>
     `,
     controller: GenericStepController
   })

@@ -8,7 +8,7 @@ function HomeController($element, workflowService){
   home.jumpToWorkflow = jumpToWorkflow;
 
   home.$postLink = () => {
-    const mount = $element[0].querySelector('.home-component-stage-content');
+    const mount = $element[0].querySelector('.home-component-stage');
     workflowService.registerStage(angular.element(mount));
   }
 
