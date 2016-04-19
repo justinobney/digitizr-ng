@@ -1,8 +1,6 @@
-import stage from './stage/index.js';
 import genericStep from './workflow/generic-step.js';
 
 const deps = [
-  stage,
   genericStep
 ];
 
