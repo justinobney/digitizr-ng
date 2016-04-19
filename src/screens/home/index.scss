@@ -49,3 +49,25 @@ home {
   @include button(rgba(255, 189, 128, 0.67));
   height: 51px;
 }
+
+.home-component-stage {
+  @include columnParent();
+  @include flexChild();
+  margin: 3px;
+  border: solid 3px #000;
+}
+
+.home-component-stage-header {
+  @include columnParent();
+  @include flex(0 auto);
+  height: 47px;
+  padding: 5px;
+  background: #505050;
+  color: #FFF;
+  line-height: 25px;
+}
+
+.home-component-stage-content {
+  padding: 4px;
+  overflow: scroll;
+}
