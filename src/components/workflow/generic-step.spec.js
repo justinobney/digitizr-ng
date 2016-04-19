@@ -17,11 +17,11 @@ describe('Component: generic-step', () => {
     });
 
     beforeEach(() => {
-      element = $compile('<generic-step step="foo">')($rootScope);
+      element = $compile(`<generic-step step="'foo'">`)($rootScope);
       $rootScope.$digest();
     });
 
     it('should register the stage in the $postLink', ()=> {
-      expect(element.text().indexOf('foo')).toBe(-1);
+      expect(element.text().indexOf('foo')).not.toBe(-1);
     });
 });
