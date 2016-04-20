@@ -1,5 +1,5 @@
-import genericStep from './workflow/generic-step.js';
-import pickList from './workflow/pick-list.js';
+import genericStep from './workflow/generic-step/index.js';
+import pickList from './workflow/pick-list/index.js';
 
 const deps = [
   genericStep,

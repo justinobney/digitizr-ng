@@ -22,10 +22,10 @@ function WorkflowService($q, $compile, $injector, $rootScope){
         {
           text: 'Line No',
           key: 'lineNo',
-          component: 'generic-step',
+          component: 'pick-list',
           $inject:['$q', '$http'],
           resolve: ($q, $http) => {
-            return $q.resolve({});
+            return $q.resolve({items:[{text:'foo', value:'bar'}]});
           }
         },
         {text: 'Sheet No', key: 'sheetNo', component: 'pick-list', resolve: randomItems},
@@ -79,7 +79,7 @@ function WorkflowService($q, $compile, $injector, $rootScope){
         {text: 'Insulation', key: 'insulation'},
         {text: 'Area', key: 'area', component: 'pick-list', resolve: randomItems},
         {text: 'Shop', key: 'shop', component: 'pick-list', resolve: randomItems},
-        {text: 'Demo', key: 'demo'},
+        {text: 'Demo', key: 'demo',component:'pick-list', resolve: randomItems},
         {text: 'Underground', key: 'underground', component: 'pick-list', resolve: randomItems}
       ]
     ]
@@ -145,32 +145,16 @@ function WorkflowService($q, $compile, $injector, $rootScope){
 
     _currentProp = step.key;
 
-    // mount new component
-    const stepConfig = findTransitionState(step.key);
+    // mount new component    
     const defaults = {component: 'generic-step', resolve: () => ({step: step})};
-    const config = {...defaults, ...stepConfig};
+    const config = {...defaults, ...step};
 
     // resolve and compile
     resolveBindings(config, step).then((bindings) => {
       compile(config, bindings);
     });
   }
-
-  function findTransitionState(key){
-    var configs = svc.config.primary.concat(
-      svc.config.secondary,
-      svc.config.header
-    );
-
-    const step = flatten(configs).filter(v => v.key == key);
-
-    if(step.length !== 1){
-      throw new Error('step not found')
-    }
-
-    return step[0];
-  }
-
+  
   function resolveBindings(config, step){
     const decorateBindings = (props) => {
       props.step = step;

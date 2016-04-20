@@ -12,6 +12,7 @@ module.exports = function(config) {
         singleRun: false,
         autoWatchBatchDelay: 300,
         files: [
+            'node_modules/babel-polyfill/browser.js',
             'src/index.js',
             'before-each-test.js',
             'src/**/*.spec.js',

@@ -1,4 +1,4 @@
-import './pick-list.scss';
+import './index.scss';
 
 function PickListController(){
   const pickList = this;

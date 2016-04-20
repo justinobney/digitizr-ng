@@ -1,4 +1,4 @@
-import './generic-step.scss';
+import './index.scss';
 
 function GenericStepController(){
   const stepCtrl = this;
