@@ -1,30 +1,30 @@
 import './index.scss';
 import template from './index.html';
 
-function PickListController(){
+function EventualPickListController(){
   const pickList = this;
 
   pickList.$onInit = () => {
     if(!pickList.items || !pickList.items.length){
-      throw new Error('pick-list requires items');
+      throw new Error('eventual-pick-list requires items');
     }
   }
 
   pickList.$onDestroy = () => {
-    console.log(`pick-list ::: $onDestroy ::: ${pickList.step.text}`);
+    console.log(`eventual-pick-List ::: $onDestroy ::: ${pickList.step.text}`);
   };
 }
 
 
 export default angular
-  .module('wintake.digitizr.step.pickList', [])
-  .component('pickList', {
+  .module('wintake.digitizr.step.eventualPickList', [])
+  .component('eventualPickList', {
     bindings: {
       step: '=',
       items: '<',
       onSelect: '&'
     },
     template: template,
-    controller: PickListController
+    controller: EventualPickListController
   })
   .name;

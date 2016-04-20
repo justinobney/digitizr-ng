@@ -1,0 +1,10 @@
+<div class="home-component-stage-header">
+	Pick List {{$ctrl.step.text}}
+</div>
+<div class="home-component-stage-content">
+    <button ng-repeat="item in $ctrl.items"
+                ng-click="$ctrl.onSelect({value:item.value})"
+                class="pick-list-button pick-list-button-{{$ctrl.step.key}}">
+    {{item.text}}
+    </button>
+</div>

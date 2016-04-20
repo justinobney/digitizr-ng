@@ -1,0 +1,5 @@
+<div class="home-component-stage-header">
+	Pipe Size {{$ctrl.step.text}}
+</div>
+<number step="$ctrl.step" on-select="$ctrl.onSelect({value:value})"></number>
+<pick-list step="$ctrl.step" on-select="$ctrl.onSelect({value:value})" items="$ctrl.items"></pick-list>

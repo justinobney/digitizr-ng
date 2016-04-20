@@ -1,0 +1,5 @@
+<div class="home-component-stage-header">
+	Eventual Pick List {{$ctrl.step.text}}
+</div>
+<text step="$ctrl.step" on-select="$ctrl.onSelect({value:value})"></text>
+<pick-list step="$ctrl.step" on-select="$ctrl.onSelect({value:value})" items="$ctrl.items"></pick-list>

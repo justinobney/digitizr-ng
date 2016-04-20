@@ -1,0 +1,9 @@
+@import "mixins.scss";
+
+
+.generic-step-button {
+  @include button(rgba(127, 211, 255, 0.67));
+  padding: 20px;
+  display: block;
+  width: 98%;
+}

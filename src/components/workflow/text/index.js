@@ -1,27 +1,22 @@
 import './index.scss';
-
 import template from './index.html';
 
-function GenericStepController(){
+function TextController(){
   const stepCtrl = this;
 
   stepCtrl.$onDestroy = () => {
-    console.log(`generic-step ::: $onDestroy ::: ${stepCtrl.step.text}`);
+    console.log(`text ::: $onDestroy ::: ${stepCtrl.step.text}`);
   };
 }
 
-
-
 export default angular
-  .module('wintake.digitizr.step.generic', [])
-  .component('genericStep', {
+  .module('wintake.digitizr.step.text', [])
+  .component('text', {
     bindings: {
       step: '=',
       onSelect: '&'
     },
-    
     template: template,
-    controller: GenericStepController
+    controller: TextController
   })
   .name;
-

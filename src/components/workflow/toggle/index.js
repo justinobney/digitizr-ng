@@ -1,27 +1,22 @@
 import './index.scss';
-
 import template from './index.html';
 
-function GenericStepController(){
+function ToggleController(){
   const stepCtrl = this;
 
   stepCtrl.$onDestroy = () => {
-    console.log(`generic-step ::: $onDestroy ::: ${stepCtrl.step.text}`);
+    console.log(`toggle ::: $onDestroy ::: ${stepCtrl.step.text}`);
   };
 }
 
-
-
 export default angular
-  .module('wintake.digitizr.step.generic', [])
-  .component('genericStep', {
+  .module('wintake.digitizr.step.toggle', [])
+  .component('toggle', {
     bindings: {
       step: '=',
       onSelect: '&'
     },
-    
     template: template,
-    controller: GenericStepController
+    controller: ToggleController
   })
   .name;
-

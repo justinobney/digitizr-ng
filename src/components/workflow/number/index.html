@@ -1,0 +1,26 @@
+<div class="home-component-stage-header">
+     Number {{$ctrl.step.text}}
+</div>
+<div class="home-component-stage-content">
+<div class="numpad">
+	<div class="text-area">
+		<input type="text" ng-model="$ctrl.text"/>
+	</div>
+    <div class="button-wrapper">
+        <button class="numeric" ng-click="$ctrl.numberButtonPress('7')">7</button>
+        <button class="numeric" ng-click="$ctrl.numberButtonPress('8')">8</button>
+        <button class="numeric" ng-click="$ctrl.numberButtonPress('9')">9</button>
+        <button class="numeric" ng-click="$ctrl.numberButtonPress('4')">4</button>
+        <button class="numeric" ng-click="$ctrl.numberButtonPress('5')">5</button>
+        <button class="numeric" ng-click="$ctrl.numberButtonPress('6')">6</button>
+        <button class="numeric" ng-click="$ctrl.numberButtonPress('1')">1</button>
+        <button class="numeric" ng-click="$ctrl.numberButtonPress('2')">2</button>
+        <button class="numeric" ng-click="$ctrl.numberButtonPress('3')">3</button>
+        <button class="numeric" ng-click="$ctrl.numberButtonPress('0')">0</button>
+        <button class="numeric" ng-click="$ctrl.numberButtonPress('.')">.</button>
+        <button class="numeric" ng-click="$ctrl.numberButtonPress('.00')">.00</button>
+        <button class="btn-danger" style="width:80px;" ng-click="$ctrl.clear()">Clear</button>
+        <button class="btn-primary" style="width:80px;" ng-click="$ctrl.onSelect({value:$ctrl.text})">Enter</button>  
+    </div>
+</div> 
+</div>
